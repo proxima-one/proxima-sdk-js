@@ -1,0 +1,15 @@
+build/
+node_modules/
+npm-debug.log
+.coveralls.yml
+DB/
+coverage/
+.nyc_output/
+test/
+bench/
+.DS_Store
+.circleci
+.npmignore
+bundle/
+bench/.DS_Store
+examples/
