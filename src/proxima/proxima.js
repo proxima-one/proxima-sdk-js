@@ -1,6 +1,6 @@
 'use strict';
 
-const Subgraph = require('../subgraph/index.js');
+const DataVertex = require('../data-vertex/index.js');
 
 class Proxima {
   constructor() {
@@ -8,12 +8,12 @@ class Proxima {
 
   }
   //default audit fn
-  
+
   //default verify fn
 
-  addVertex(name, vertex) {
-    if (subgraph instanceof VertexClient) {
-      this._vertexMap[name] = subgraph
+  addDataVertex(name, vertex) {
+    if (vertex instanceof DataVertex) {
+      this._vertexMap[name] = vertex
     } else {
       throw new Error("Incorrect type for subgraph")
     }

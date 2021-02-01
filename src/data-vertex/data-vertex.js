@@ -5,6 +5,7 @@ const { ApolloClient } =  require('apollo-client');
 const {InMemoryCache } =  require('apollo-cache-inmemory');
 const { createHttpLink } = require('apollo-link-http');
 const fetch = require("node-fetch");
+const assert = require('bsert')
 const {ApolloFetch} = require("apollo-fetch");
 
 /*
@@ -16,23 +17,56 @@ const customFetch = (uri, options) => {
 const link = createHttpLink({ fetch: customFetch });
 */
 
-class Subgraph {
-  constructor(client_uri, query_map, audit_fn, args={}) {
+class DataVertex {
+  constructor(name, client_uri, query_map, audit_fn, args={}) {
     this.validate(client_uri, query_map, audit_fn)
+    this.name = name
     this._client = this.constructClient(client_uri)
     this._query = query_map
     this.audit_fn = audit_fn
     this.verify = Proof.verify
+    this._app = this.initAppQueries(query_map)
   }
 
   validate(client_uri, query, audit) {
     if (!(audit instanceof Function)) {
-      throw new Error("Audit must be a function")
+      throw new Error("Audit must be a function: ", audit)
     }
     if (!(client_uri) || !(query) || !(audit)) {
        throw new Error("Missing an argument")
     }
     return true
+  }
+
+  initAppQueries(app_queries) {
+    let app = {}
+    for (var tableName in app_queries) {
+      let table = app_queries[tableName]
+      let tableFns = {
+        get: this.queryFn(table.get),
+        getAll: this.queryFn(table.getAll),
+        search: this.queryFn(table.search),
+        put: this.mutationFn(table.put)
+      }
+      app[tableName] = tableFns;
+    }
+    return app
+  }
+
+  set app(query_fns) {
+    this._app = query_fns
+  }
+
+  get app() {
+    return this._app
+  }
+
+  queryFn(queryText) {
+    return (async function (args) {this.client.query({query: queryText, variables: args})});
+  }
+
+  mutationFn(mutationText) {
+    return (async function (args) {this.client.mutate({mutate: mutateText, variables: args})});
   }
 
   constructClient(client_uri) {
@@ -72,4 +106,4 @@ class Subgraph {
   }
 }
 
-module.exports = Subgraph
+module.exports = DataVertex

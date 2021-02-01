@@ -2,4 +2,4 @@
 const gql = require('@apollo/client');
 
 
-//query 
+//query
