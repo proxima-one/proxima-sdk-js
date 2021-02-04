@@ -1,41 +1,81 @@
 'use strict'
-
+const Any = require('random-values-generator');
 
 
 class EntityTestCase {
-  constructor(entityStruct) {
-    //entities
-      //entity
-      //entityInput
-    //entityInputs
-    //entityStructs
-    //schema
-    //name
-    //operations
+  constructor(vertex, entityStruct) {
+    this.schema = vertex // (get schema)
+    this.entity = entity
+    this.entityInput = entityStruct.entityInput
+    this.operations = entityStruct.operations
+    this.name = entityStruct.name
+    this.entities = {}
+    this.tests = {}
   }
-  //parse
 
-generate(num) {
+  runTests(num = 100, args = {}) {}
+
+  generateTests(num = 100, args = {}) {
     this.entities = {}
     var entity;
-    // for (var i) { // generate inputs
-    //   this.entities[entity.id] = entity
+    for (var i = 0; i < num; i++) { // generate inputs
+      entity = this.generateRandomEntity()
+      this.entities[entity.id] = entity
+      this.generatePutTest(this.operations["put"], entity)
+      this.generateGetTest(this.operations["get"], entity)
+    }
 
-    //operations/functions
-    //get
-      //list
-    //put
-      //list
-    //getAll
-    //search
+    //set of ids
+    //ranges
+
+    //takes in all of the entities, gets the range of ids, calculates the range of the ids
+    //gets the range of all of the values (tracks this)
+    for (var i = 0; i < num; i++) {
+      //need, entityDict, ranges, set of ids
+      //generateRandom TestValue Inputs
+      //getOutputs
+
+      //store the tests
+      this.generateGetAllTest(this.operations["getAll"], entityDict)
+      this.generateSearchTest(this.operations["search"], entityDict)
+    }
+
+
+
   }
 
-  generateRandomEntity(entityStruct) {
+  generateSearchTest(name, entities, entityInputs) {
+    //type
+  }
+
+  generatePutTest(name, entities, entityInputs) {}
+
+  generateGetTest(name, entities, entityInputs) {}
+
+  generateGetAllTest(name, entities, entityInputs) {}
+
+  generateRandomFunction() {
+    //
+    //what does app take in...
+    //vertex.app[name]. (operation)
+    //variables
+    // it('should be able to make proofs and do audits from mocked entities', function() {
+    //   //audit
+    //   //proof
+    //   assert.equal(true, false);
+    // });
+    //expected/expected fields
+    return true
+  }
+
+  generateRandomEntity(args = {}) {
     let newRandomEntity = {}
     let newRandomEntityInput = {}
     let id = ""
-    for (const [name, var] of entityStruct) {
-      let val = getRandom(var.type)
+    for (const [name,
+        var
+      ] of this.entity) {
+      let val = generateRandomOfType(var.type)
       if (name == "ID") {
         id = val
       }
@@ -44,107 +84,40 @@ generate(num) {
       }
       newRandomEntity[name] = val
     }
-    return {id: id, entity: newRandomEntity, entityInput: newRandomEntityInput}
-}
-    generateRandomFunction() {
-      //what does app take in...
-      //vertex.app[name]. (operation)
-        //variables
-      //expected/expected fields
-      return true
+    return {
+      id: id,
+      entity: newRandomEntity,
+      entityInput: newRandomEntityInput
     }
-
-  runTests(number, args = {}) {
-    this.generate(num, args)
-    this.runMutationTests(num, args)
-    this.runQueryTests(num, args)
   }
-    runMutationTests(num, args) {
-      //for loop
+
+  generateRandomOfType(varType, args = {}) {
+    var randomVar;
+    switch (varType) {
+      case "String":
+        randomVar = Any.string(32)
+        break
+      case "Float":
+        randomVar = Any.positiveNumber()
+        break
+      case "ID":
+        randomVar = Any.string(32)
+        break
+      case "Int":
+        randomVar = Any.positiveInteger()
+        break
+      case "Bool":
+        randomVar = false
+        break
+      default:
+        randomVar = Any.string(32)
+        break
     }
-    runMutationTest() {
-      //generateRandomMutation
-      //update
-      //check
-    }
-
-    runQueryTests(num, args) {}
-    runQueryTest() {
-      //get
-        //generateRandomGet
-        //generateRandomGetAll
-        //generateRandomSearch
-      //getAll
-
-      //search
-    }
-
-    runAuditTest() {
-      return true
-    }
-
-    runProofTest() {
-      return true
-    }
-}
-
-
-
-
-
-
-
-
-//create type query test
-//type mutation test
-//test audit
-//test proof
-
-
-// it('should be able to make proofs and do audits from mocked entities', function() {
-//   //audit
-//   //proof
-//   assert.equal(true, false);
-// });
-
-//test data get
-
-function generateEntityTestData(entityStruct) {
-  entities = {}
-  entityInputs = []
-  for name, varType in entityStruct: {
-    entitys.append(generateRandom(varType))
-
+    return randomVar
   }
-  return entities, entityInputs
 }
 
-function generateRandomEntity(entityStruct) {
-  //entities
-}
 
-function entityTest(name, entityStruct) {
-  entities, entityInputs = generateEntityTestData(name, entityStruct)
-  //operations
-  mutationTest(name, entity, entityInputs)
-  getTest(name, entity, entityInputs)
-  getAllTest(name, entity, entityInputs)
-  queryTest(name, entity, entityInputs)
-}
 
-function queryTest(name, entities, entityInputs) {
-  //
 
-}
-
-function mutationTest(name, entities, entityInputs) {
-
-}
-
-function getTest(name, entities, entityInputs) {
-
-}
-
-function getAllTest(name, entities, entityInputs) {
-
-}
+module.exports = EntityTestCase;

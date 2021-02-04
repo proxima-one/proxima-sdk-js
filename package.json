@@ -39,6 +39,7 @@
     "minify": "^4.1.3",
     "mocha": "^6.1.4",
     "node-fetch": "^2.6.0",
+    "random-values-generator": "^0.26.0",
     "randombytes": "^2.1.0",
     "tinyify": "^2.5.1"
   },
