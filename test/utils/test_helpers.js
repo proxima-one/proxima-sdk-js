@@ -4,7 +4,7 @@ const Any = require('random-values-generator');
 
 class EntityTestCase {
   constructor(vertex, entityStruct) {
-    this.schema = vertex // (get schema)
+    this.vertex = vertex // (get schema)
     this.entity = entity
     this.entityInput = entityStruct.entityInput
     this.operations = entityStruct.operations
@@ -13,7 +13,9 @@ class EntityTestCase {
     this.tests = {}
   }
 
-  runTests(num = 100, args = {}) {}
+  runTests(num = 100, args = {}) {
+    //describe
+  }
 
   generateTests(num = 100, args = {}) {
     this.entities = {}
@@ -39,9 +41,6 @@ class EntityTestCase {
       this.generateGetAllTest(this.operations["getAll"], entityDict)
       this.generateSearchTest(this.operations["search"], entityDict)
     }
-
-
-
   }
 
   generateSearchTest(name, entities, entityInputs) {
@@ -50,7 +49,9 @@ class EntityTestCase {
 
   generatePutTest(name, entities, entityInputs) {}
 
-  generateGetTest(name, entities, entityInputs) {}
+  generateGetTest(name, entities, entityInputs) {
+
+  }
 
   generateGetAllTest(name, entities, entityInputs) {}
 
