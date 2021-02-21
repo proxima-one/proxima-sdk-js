@@ -4,7 +4,7 @@ const Any = require('random-values-generator');
 
 class EntityTestCase {
   constructor(vertex, entityStruct) {
-    this.vertex = vertex // (get schema)
+    //this.vertex = vertex // (get schema)
     this.entity = entity
     this.entityInput = entityStruct.entityInput
     this.operations = entityStruct.operations
@@ -14,7 +14,10 @@ class EntityTestCase {
   }
 
   runTests(num = 100, args = {}) {
-    //describe
+    //describe this.name + test
+    //put tests
+    //get testss
+    //other tests
   }
 
   generateTests(num = 100, args = {}) {
@@ -32,22 +35,24 @@ class EntityTestCase {
 
     //takes in all of the entities, gets the range of ids, calculates the range of the ids
     //gets the range of all of the values (tracks this)
-    for (var i = 0; i < num; i++) {
-      //need, entityDict, ranges, set of ids
-      //generateRandom TestValue Inputs
-      //getOutputs
-
-      //store the tests
-      this.generateGetAllTest(this.operations["getAll"], entityDict)
-      this.generateSearchTest(this.operations["search"], entityDict)
-    }
+    // for (var i = 0; i < num; i++) {
+    //   //need, entityDict, ranges, set of ids
+    //   //generateRandom TestValue Inputs
+    //   //getOutputs
+    //
+    //   //store the tests
+    //   this.generateGetAllTest(this.operations["getAll"], entityDict)
+    //   this.generateSearchTest(this.operations["search"], entityDict)
+    // }
   }
 
   generateSearchTest(name, entities, entityInputs) {
     //type
   }
 
-  generatePutTest(name, entities, entityInputs) {}
+  generatePutTest(name, entities, entityInputs) {
+
+  }
 
   generateGetTest(name, entities, entityInputs) {
 

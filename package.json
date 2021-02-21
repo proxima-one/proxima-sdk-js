@@ -1,6 +1,6 @@
 {
-  "name": "proxima-vertex-client",
-  "version": "1.0.1",
+  "name": "proxima-sdk-js",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "nyc": {
